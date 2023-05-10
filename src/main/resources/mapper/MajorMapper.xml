@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.remained.silence.major.mapper.MajorMapper">
+
+    <resultMap id="BaseResultMap" type="top.remained.silence.major.bean.Major">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="year" column="year" jdbcType="CHAR"/>
+            <result property="classId" column="class_id" jdbcType="INTEGER"/>
+            <result property="type" column="type" jdbcType="VARCHAR"/>
+            <result property="collegeId" column="college_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,year,
+        class_id,type,
+        college_id
+    </sql>
+    <sql id="Base_Column_List1">
+        m.id,m.name,year,
+        class_id,type,
+        college_id
+    </sql>
+    <resultMap id="BaseResultMap1" type="top.remained.silence.major.bean.Major">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="year" column="year" jdbcType="CHAR"/>
+        <result property="classId" column="class_id" jdbcType="INTEGER"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="collegeId" column="college_id" jdbcType="INTEGER"/>
+        <association property="college"  javaType="top.remained.silence.college.bean.College"  >
+            <result property="name" column="coname" jdbcType="VARCHAR"/>
+            <result property="president" column="president" jdbcType="VARCHAR"/>
+        </association>
+        <collection property="clazzes" ofType="top.remained.silence.clazz.bean.Clazz">
+            <id property="id" column="cid" jdbcType="INTEGER"/>
+            <result property="num" column="num" jdbcType="INTEGER"/>
+            <result property="name" column="cname" jdbcType="VARCHAR"/>
+            <result property="teacherName" column="teacher_name" jdbcType="VARCHAR"/>
+        </collection>
+     </resultMap>
+
+    <select id="getAll" resultMap="BaseResultMap1">
+        select <include refid="Base_Column_List1"/>,
+        c.name cname,c.id cid,teacher_name,num,co.name coname,president
+        from s_major m left join s_clazz c on m.name=c.major_name
+        left join s_college co on m.college_id=co.id
+         <where>
+             <if test=" name !=null and name !='' " >
+                    m.name like concat('%',#{name},'%')
+             </if>
+         </where>
+        limit #{offset},#{size}
+    </select>
+</mapper>

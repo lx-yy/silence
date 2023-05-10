@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.remained.silence.resume.mapper.ResumeMapper">
+
+    <resultMap id="BaseResultMap" type="top.remained.silence.resume.bean.Resume">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="studentId" column="student_id" jdbcType="BIGINT"/>
+            <result property="project" column="project" jdbcType="VARCHAR"/>
+            <result property="skill" column="skill" jdbcType="VARCHAR"/>
+            <result property="hometown" column="hometown" jdbcType="VARCHAR"/>
+            <result property="school" column="school" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,student_id,project,
+        skill,hometown,school,
+    </sql>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.remained.silence.log.mapper.LogMapper">
+
+    <resultMap id="BaseResultMap" type="top.remained.silence.log.bean.Log">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="firmName" column="firm_name" jdbcType="VARCHAR"/>
+            <result property="studentId" column="student_id" jdbcType="BIGINT"/>
+            <result property="studentName" column="student_name" jdbcType="VARCHAR"/>
+            <result property="time1" column="time1" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,firm_name,
+        student_id,student_name,time1
+    </sql>
+</mapper>

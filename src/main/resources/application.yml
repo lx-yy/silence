@@ -1,0 +1,59 @@
+spring:
+  servlet:
+    multipart:
+      max-request-size: 30MB
+      max-file-size: 30MB
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1/silence?serverTimezone=UTC
+    username: root
+    password: 229709
+    #配置数据源
+    druid:
+      #      添加sql监控功能 stat  设置防火墙wall 默认配置好的
+      filters: stat,wall
+#      防火墙功能 filters: stat,wall对这个进行详细配置 自动配置好的
+      filter:
+        stat:
+          slow-sql-millis: 1000
+          enabled: true
+          log-slow-sql: true
+
+      #        给数据源添加监控页功能
+      stat-view-servlet:
+        enabled: true
+        login-password: 229709
+        login-username: lx
+        #重置按钮
+        reset-enable: false
+        allow:
+      web-stat-filter:
+#        开启web监控配置 默认值false
+        enabled: true
+        url-pattern: /*
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+        session-stat-max-count: 20
+#      监控这个包下的所有spring组件
+      aop-patterns: top.remained.silence.student.service
+    #用rest风格可以发送delete请求等
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: "229709"
+
+server:
+  port: 8081
+mybatis-plus:
+  configuration:
+    #显示Sql语句
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#   默认的配置
+  mapper-locations: classpath*:mapper/**/*.xml
+#   扫描通用枚举类
+  type-enums-package: top.remained.silence.enums
